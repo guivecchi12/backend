@@ -4,8 +4,6 @@ const Users = require("./users-model");
 const imagesRouter = require("../images/images-router");
 const storiesRouter = require("../stories/stories-router");
 
-const restricted = require("../auth/authenticate-middleware");
-
 const router = express.Router();
 
 //router.use("/:id/images", imagesRouter);
