@@ -24,9 +24,9 @@ router.get("/", async (req, res, next) => {
   }
 });
 
-router.get("/:id", async (req, res, next) => {
+router.get("/:story_id", async (req, res, next) => {
   try {
-    const story = await storiesModel.findByStoryId(req.params.id);
+    const story = await storiesModel.findByStoryId(req.params.story_id);
     if (!story) {
       return res.status(404).json({
         message: "The story you are looking for cannot be found.",
@@ -55,10 +55,10 @@ router.post("/", async (req, res, next) => {
 
 /////////////// PUT ///////////////
 
-router.put("/:id", async (req, res, next) => {
+router.put("/:story_id", async (req, res, next) => {
   try {
     const newStoryInfo = await storiesModel.updateStory(
-      req.params.id,
+      req.params.story_id,
       req.body
     );
     res.status(202).json({
@@ -71,10 +71,10 @@ router.put("/:id", async (req, res, next) => {
 
 /////////////// DELETE ///////////////
 
-router.delete("/:id", async (req, res, next) => {
+router.delete("/:story_id", async (req, res, next) => {
   try {
     await storiesModel
-      .removeStory(req.params.id)
+      .removeStory(req.params.story_id)
       .then(() => res.status(204).end());
   } catch (err) {
     next(err);
