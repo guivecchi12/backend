@@ -6,7 +6,7 @@ const storiesRouter = require("../stories/stories-router");
 
 const router = express.Router();
 
-//router.use("/:id/images", imagesRouter);
+router.use("/:id/images", imagesRouter);
 router.use("/:id/stories", storiesRouter);
 
 // This is for the /users endpoint and will only be available to logged-in users once we create and call the `restrict` middleware.
