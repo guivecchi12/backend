@@ -45,7 +45,7 @@ router.post("/", async (req, res, next) => {
   try {
     const imageInfo = await imagesModel.addImage({
       ...req.body,
-      user_id: req.params.img_id,
+      user_id: req.params.id,
     });
     res.status(201).json(imageInfo);
   } catch (err) {
@@ -58,11 +58,11 @@ router.post("/", async (req, res, next) => {
 router.put("/:imgs_id", async (req, res, next) => {
   try {
     const newImageInfo = await imagesModel.updateImage(
-      req.params.img_id,
+      req.params.imgs_id,
       req.body
     );
     res.status(202).json({
-      message: `Image url has been updated to ${req.body.imgs_url}`,
+      message: `Image url has been updated to ${req.body.img_url}`,
     });
   } catch (err) {
     next(err);
