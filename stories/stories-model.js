@@ -16,7 +16,7 @@ function findByUserId(userId) {
 }
 
 async function addStory(data) {
-  const [id] = await db("user_stories").insert(data);
+  const [id] = await db("user_stories").returning("id").insert(data);
   return findByStoryId(id);
 }
 

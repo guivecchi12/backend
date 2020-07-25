@@ -16,7 +16,7 @@ function findByUserId(userId) {
 }
 
 async function addImage(data) {
-  const [id] = await db("user_images").insert(data);
+  const [id] = await db("user_images").returning("id").insert(data);
   return findByImageId(id);
 }
 
