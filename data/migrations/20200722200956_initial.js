@@ -8,6 +8,7 @@ exports.up = async function (knex) {
   await knex.schema.createTable("user_images", (table) => {
     table.increments();
     table.text("img_url").notNullable();
+    table.text("label");
     table
       .integer("user_id")
       .unsigned()
@@ -18,8 +19,8 @@ exports.up = async function (knex) {
 
   await knex.schema.createTable("user_stories", (table) => {
     table.increments();
-    table.text("story_title").notNullable().unique();
-    table.text("story_body").notNullable().unique();
+    table.text("story_title").notNullable();
+    table.text("story_body").notNullable();
     table
       .integer("user_id")
       .unsigned()
