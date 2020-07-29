@@ -1,4 +1,3 @@
-require("dotenv").config();
 const bcrypt = require("bcryptjs");
 const express = require("express");
 const jwt = require("jsonwebtoken");
@@ -22,6 +21,7 @@ router.post("/register", (req, res) => {
         res.status(201).json(user);
       })
       .catch((error) => {
+        console.log("finding error", error);
         res.status(500).json({
           errorMessage: "Error with server",
         });
@@ -34,7 +34,7 @@ router.post("/login", (req, res) => {
 
   db.findBy({ username })
     .then((user) => {
-      if (user && bcrypt.compareSync(password, user[0].password)) {
+      if (user[0] && bcrypt.compareSync(password, user[0].password)) {
         const token = generateToken(user[0]);
 
         res.status(200).json({

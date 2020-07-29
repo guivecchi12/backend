@@ -6,7 +6,9 @@
   "scripts": {
     "server": "nodemon --require dotenv/config index.js",
     "start": "node index.js",
-    "test": "jest --watchAll"
+    "test": "cross-env TESTING=true DB_ENV=testing jest --watchAll --runInBand",
+    "test:seed": "cross-env NODE_ENV=testing knex seed:run",
+    "test:migrate": "cross-env NODE_ENV=testing knex migrate:latest"
   },
   "jest": {
     "testEnvironment": "node"

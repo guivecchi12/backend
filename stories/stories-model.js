@@ -1,6 +1,6 @@
 const db = require("../data/db.config");
 
-function findstories() {
+function findStories() {
   return db("user_stories");
 }
 
@@ -29,7 +29,7 @@ async function updateStory(id, storyData) {
 }
 
 module.exports = {
-  findstories,
+  findStories,
   findByStoryId,
   findByUserId,
   addStory,
