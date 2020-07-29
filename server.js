@@ -2,11 +2,16 @@ const express = require("express");
 const cors = require("cors");
 const helmet = require("helmet");
 
-const restricted = require("./auth/authenticate-middleware");
+const restrictedMiddleware = require("./auth/authenticate-middleware");
 const authRouter = require("./auth/auth-router");
 const usersRouter = require("./users/users-router");
+const rootRouter = require("./router");
 
 const server = express();
+const isTesting = process.env.TESTING;
+const restricted = isTesting
+  ? (_req, _res, next) => next()
+  : restrictedMiddleware;
 
 server.use(helmet());
 server.use(cors());
@@ -14,6 +19,7 @@ server.use(express.json());
 
 server.use("/auth", authRouter);
 server.use("/users", restricted, usersRouter);
+server.use("/", restricted, rootRouter);
 
 server.get("/", (req, res, next) => {
   res.json({
