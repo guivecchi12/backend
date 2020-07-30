@@ -13,4 +13,5 @@ router.get("/stories", async (req, res) => {
   const stori = await stories.findStories();
   res.json(stori);
 });
+
 module.exports = router;
