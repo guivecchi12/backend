@@ -12,11 +12,6 @@ module.exports = router;
 router.get("/", async (req, res, next) => {
   try {
     const images = await imagesModel.findByUserId(req.params.id);
-    // if (!images) {
-    //     return res.json({
-    //         message: "This user does not have any images yet."
-    //     })
-    // }
 
     res.json(images);
   } catch (err) {
