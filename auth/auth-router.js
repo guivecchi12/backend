@@ -13,7 +13,10 @@ router.post("/register", (req, res) => {
       message: "Must provide username and password",
     });
   } else {
-    const hash = bcrypt.hashSync(newUser.password, 15);
+    const hash = bcrypt.hashSync(
+      newUser.password,
+      parseInt(process.env.SALT, 10)
+    );
     newUser.password = hash;
 
     db.add(newUser)

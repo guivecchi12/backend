@@ -4,7 +4,12 @@ const db = require("../data/db.config");
 
 describe("authRouter", () => {
   beforeAll(async () => {
+    await db.raw('PRAGMA journal_mode = "OFF"');
     await db.seed.run();
+  });
+
+  afterAll(async () => {
+    await db.destroy();
   });
 
   // Register endpoint tests

@@ -1,11 +1,11 @@
 const supertest = require("supertest");
-// const server = require("../index")
 const server = require("../server");
 const db = require("../data/db.config");
 
 describe("users integration tests", () => {
   //////////////    /users & /users/:id    //////////////
   beforeEach(async () => {
+    await db.raw('PRAGMA journal_mode = "OFF"');
     await db.seed.run();
   });
 

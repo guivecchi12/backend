@@ -1,19 +1,21 @@
 # backendEndpoints related to
 
+Heroku Url:https://ptct-expat-journal-backend.herokuapp.com
+
 Returns: {"message":"Welcome to our expat-journal-2 API!"}
 
 /auth/register
 
 POST request should be formatted like this:
 {
-"username":"exampleUser",
-"password":"examplePassword"
+"username":"journal expat",
+"password":"password1"
 }
 
     If the POST reqest is successful it will return a status code: 201 and a response body similar to this:
         {
             "id": 1,
-            "username": "exampleUser"
+            "username": "journal expat"
         }
 
 /auth/login
@@ -21,14 +23,14 @@ POST request should be formatted like this:
 
 POST request should be formatted like this:
 {
-"username":"exampleUser",
-"password":"examplePassword"
+"username":"journal expat",
+"password":"password1"
 }
 
     If the POST reqest is successful it will return a status code: 200 and a response body similar to this:
         {
-            "username": "Dave peter",
-            "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWJqZWN0Ijo0LCJ1c2VybmFtZSI6IkRhdmUgcGV0ZXIiLCJpYXQiOjE1OTU1NTU5NzMsImV4cCI6MTU5NTU1OTU3M30.a4Wws-pwMq1mzNIemiHzi0s3Qe4apcpxHLLD0zOlmPg"
+            "username": "journal expat",
+            "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWJqZWN0IjozOSwidXNlcm5hbWUiOiJqb3VybmFsIGV4cGF0IiwiaWF0IjoxNTk2MTUxODMwLCJleHAiOjE1OTYxNTU0MzB9.MM3XmXFyKbYo_fu4l_fQ2gY6dZ2OInBwdw3g7CkYw2Y"
         }
 
 /users
@@ -37,16 +39,18 @@ POST request should be formatted like this:
 Returns an array of objects for each user. The return looks like this:
 [
 {
+{
 "id": 1,
-"username":"user1"
+"username": "expat story"
 },
 {
 "id": 2,
-"username":"user2"
+"username": "legs"
 },
 {
 "id": 3,
-"username":"user3"
+"username": "expat"
+},
 }
 ]
 
@@ -54,8 +58,8 @@ Returns an array of objects for each user. The return looks like this:
 
 Returns an object for the user with the id specified in the url. The return looks like this:
 {
-"id":1,
-"username":"user1"
+"id": 1,
+"username": "expat story"
 }
 
 /users/:imgs_id/images
@@ -116,12 +120,14 @@ Returns an array of objects containing the data for each story belonging to the 
 "id":1,
 "story_title":"user1, story1",
 "story_body":"Example story number 1 for user number 1.",
+"album_id":null,
 "user_id":1
 },
 {
 "id":2,
 "story_title":"user1, story2",
 "story_body":"Example story number 2 for user number 1.",
+"album_id":null,
 "user_id":1
 }
 ]
@@ -139,6 +145,7 @@ Returns an object for the story with the id specified in the url. The return loo
 "id":1,
 "story_title":"user1, story1",
 "story_body":"Example story number 1 for user number 1.",
+"album_id":null,
 "user_id":1
 }
 
@@ -155,3 +162,11 @@ PUT request should be formatted like this:
 
     DELETE request:
     If the DELETE reqest is successful it will return a status code: 204
+
+Get all images:
+The format looks like this:
+/images
+
+Get all stories:
+The format looks like this:
+/stories
