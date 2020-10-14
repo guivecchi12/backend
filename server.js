@@ -2,16 +2,12 @@ const express = require("express");
 const cors = require("cors");
 const helmet = require("helmet");
 
-const restrictedMiddleware = require("./auth/authenticate-middleware");
+
 const authRouter = require("./auth/auth-router");
 const usersRouter = require("./users/users-router");
 const rootRouter = require("./router");
 
 const server = express();
-const isTesting = process.env.TESTING;
-const restricted = isTesting
-  ? (_req, _res, next) => next()
-  : restrictedMiddleware;
 
 server.use(helmet());
 server.use(cors());
