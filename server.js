@@ -13,15 +13,15 @@ server.use(helmet());
 server.use(cors());
 server.use(express.json());
 
-server.use("/auth", authRouter);
-server.use("/users", restricted, usersRouter);
-server.use("/", restricted, rootRouter);
-
-server.get("/", (req, res, next) => {
+server.get('/', (req, res) => {
   res.json({
-    message: "Welcome to our expat-journal-2 API!",
-  });
-});
+    message: "Welcome to our Expat"
+  })
+})
+
+server.use("/auth", authRouter);
+server.use("/users", usersRouter);
+server.use(rootRouter);
 
 server.use((err, req, res, next) => {
   console.log(err);

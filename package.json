@@ -4,26 +4,27 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "server": "nodemon --require dotenv/config index.js",
+    "server": "cross-env NODE_ENV=development nodemon --require dotenv/config index.js",
     "start": "node index.js",
     "test": "cross-env TESTING=true DB_ENV=testing jest --watchAll --runInBand",
     "test:seed": "cross-env NODE_ENV=testing knex seed:run",
-    "test:migrate": "cross-env NODE_ENV=testing knex migrate:latest"
+    "test:migrate": "cross-env NODE_ENV=testing knex migrate:latest",
+    "server:production": "NODE_ENV=production npm start"
   },
   "jest": {
     "testEnvironment": "node"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/soni653/backend.git"
+    "url": "git+https://github.com/guivecchi12/backend.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/soni653/backend/issues"
+    "url": "https://github.com/guivecchi12/backend/issues"
   },
-  "homepage": "https://github.com/soni653/backend#readme",
+  "homepage": "https://github.com/guivecchi12/backend#readme",
   "dependencies": {
     "bcryptjs": "^2.4.3",
     "cookie-parser": "^1.4.5",
