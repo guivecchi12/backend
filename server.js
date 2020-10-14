@@ -1,17 +1,18 @@
-const express = require("express");
-const cors = require("cors");
-const helmet = require("helmet");
+const express = require("express")
+const cors = require("cors")
+const helmet = require("helmet")
+const cookieParser = require("cookie-parser")
 
+const authRouter = require("./auth/auth-router")
+const usersRouter = require("./users/users-router")
+const rootRouter = require("./router")
 
-const authRouter = require("./auth/auth-router");
-const usersRouter = require("./users/users-router");
-const rootRouter = require("./router");
+const server = express()
 
-const server = express();
-
-server.use(helmet());
-server.use(cors());
-server.use(express.json());
+server.use(helmet())
+server.use(cors())
+server.use(express.json())
+server.use(cookieParser())
 
 server.get('/', (req, res) => {
   res.json({
@@ -19,9 +20,9 @@ server.get('/', (req, res) => {
   })
 })
 
-server.use("/auth", authRouter);
-server.use("/users", usersRouter);
-server.use(rootRouter);
+server.use("/auth", authRouter)
+server.use("/users", usersRouter)
+server.use(rootRouter)
 
 server.use((err, req, res, next) => {
   console.log(err);
@@ -30,4 +31,4 @@ server.use((err, req, res, next) => {
   });
 });
 
-module.exports = server;
+module.exports = server
