@@ -6,6 +6,7 @@ const cookieParser = require("cookie-parser")
 const authRouter = require("./auth/auth-router")
 const usersRouter = require("./users/users-router")
 const rootRouter = require("./router")
+const restrict = require("./auth/authenticate-middleware")
 
 const server = express()
 
@@ -21,7 +22,7 @@ server.get('/', (req, res) => {
 })
 
 server.use("/auth", authRouter)
-server.use("/users", usersRouter)
+server.use("/users", restrict(),  usersRouter)
 server.use(rootRouter)
 
 server.use((err, req, res, next) => {

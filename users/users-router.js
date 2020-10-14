@@ -1,18 +1,14 @@
-const express = require("express");
-const Users = require("./users-model");
+const express = require("express")
+const Users = require("./users-model")
 
-const imagesRouter = require("../images/images-router");
-const storiesRouter = require("../stories/stories-router");
+const imagesRouter = require("../images/images-router")
+const storiesRouter = require("../stories/stories-router")
+const restrict = require("../auth/authenticate-middleware")
 
-const router = express.Router();
+const router = express.Router()
 
-router.use("/:id/images", imagesRouter);
-router.use("/:id/stories", storiesRouter);
-
-// This is for the /users endpoint and will only be available to logged-in users once we create and call the `restrict` middleware.
-
-//////////////    /users    //////////////
-//*******    Not sure that this is needed *******//
+router.use("/:id/images", restrict(), imagesRouter)
+router.use("/:id/stories", restrict(), storiesRouter)
 
 router.get("/", async (req, res, next) => {
   try {
@@ -22,7 +18,6 @@ router.get("/", async (req, res, next) => {
   }
 });
 
-//////////////    /users/:id    //////////////
 
 router.get("/:id", async (req, res, next) => {
   try {
@@ -40,7 +35,6 @@ router.get("/:id", async (req, res, next) => {
   }
 });
 
-//////////////    /users/:id/images    //////////////
 
 router.get("/:id/images", async (req, res, next) => {
   try {
