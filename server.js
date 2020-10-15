@@ -1,31 +1,29 @@
-const express = require("express");
-const cors = require("cors");
-const helmet = require("helmet");
+const express = require("express")
+const cors = require("cors")
+const helmet = require("helmet")
+const cookieParser = require("cookie-parser")
 
-const restrictedMiddleware = require("./auth/authenticate-middleware");
-const authRouter = require("./auth/auth-router");
-const usersRouter = require("./users/users-router");
-const rootRouter = require("./router");
+const authRouter = require("./auth/auth-router")
+const usersRouter = require("./users/users-router")
+const rootRouter = require("./router")
+const restrict = require("./auth/authenticate-middleware")
 
-const server = express();
-const isTesting = process.env.TESTING;
-const restricted = isTesting
-  ? (_req, _res, next) => next()
-  : restrictedMiddleware;
+const server = express()
 
-server.use(helmet());
-server.use(cors());
-server.use(express.json());
+server.use(helmet())
+server.use(cors())
+server.use(express.json())
+server.use(cookieParser())
 
-server.use("/auth", authRouter);
-server.use("/users", restricted, usersRouter);
-server.use("/", restricted, rootRouter);
-
-server.get("/", (req, res, next) => {
+server.get('/', (req, res) => {
   res.json({
-    message: "Welcome to our expat-journal-2 API!",
-  });
-});
+    message: "Welcome to our Expat"
+  })
+})
+
+server.use("/auth", authRouter)
+server.use("/users", restrict(),  usersRouter)
+server.use(rootRouter)
 
 server.use((err, req, res, next) => {
   console.log(err);
@@ -34,4 +32,4 @@ server.use((err, req, res, next) => {
   });
 });
 
-module.exports = server;
+module.exports = server

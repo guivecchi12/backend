@@ -1,21 +1,33 @@
-require("dotenv").config();
-const bcrypt = require("bcryptjs");
-const jwt = require("jsonwebtoken");
+const jwt = require('jsonwebtoken')
 
-module.exports = (req, res, next) => {
-  const token = req.headers.authorization;
-  const secret = process.env.JWT_SECRET;
+function restrict(){
+    const authError = {
+        message: "You are not permitted to enter"
+    }
 
-  if (token) {
-    jwt.verify(token, secret, (error, decodedToken) => {
-      if (error) {
-        res.status(400).json({ message: "Not authorized" });
-      } else {
-        req.decodedToken = decodedToken;
-        next();
-      }
-    });
-  } else {
-    res.status(401).json({ message: "Not authorized" });
-  }
-};
+    return async(req, res, next) => {
+        try{
+            const token = req.cookies.token
+            console.log(token)
+            if(!token){
+                return res.status(401).json(authError)
+            }
+            jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
+                if (err){
+                    return res.status(401).json(authError)
+                }
+                req.token = decoded
+                // console.log(req.token)
+                if( !decoded.user_id){
+                    return res.status(403).json(authError)
+                }
+                next()
+            })
+        }
+        catch(err){
+            next(err)
+        }
+    }
+}
+
+module.exports = restrict

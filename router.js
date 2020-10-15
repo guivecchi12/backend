@@ -10,8 +10,8 @@ router.get("/images", async (req, res) => {
 });
 
 router.get("/stories", async (req, res) => {
-  const stori = await stories.findStories();
-  res.json(stori);
+  const story = await stories.findStories();
+  res.json(story);
 });
 
 module.exports = router;
