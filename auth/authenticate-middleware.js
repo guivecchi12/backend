@@ -17,7 +17,7 @@ function restrict(){
                     return res.status(401).json(authError)
                 }
                 req.token = decoded
-                console.log(req.token)
+                // console.log(req.token)
                 if( !decoded.user_id){
                     return res.status(403).json(authError)
                 }

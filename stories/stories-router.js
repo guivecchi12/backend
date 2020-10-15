@@ -12,13 +12,8 @@ module.exports = router;
 router.get("/", async (req, res, next) => {
   try {
     const stories = await storiesModel.findByUserId(req.params.id);
-    // if (!stories) {
-    //     return res.json({
-    //         message: "This user does not have any stories yet."
-    //     })
-    // }
-
     res.json(stories);
+    
   } catch (err) {
     next(err);
   }
@@ -57,13 +52,11 @@ router.post("/", async (req, res, next) => {
 
 router.put("/:story_id", async (req, res, next) => {
   try {
-    const newStoryInfo = await storiesModel.updateStory(
+    const updatedStory = await storiesModel.updateStory(
       req.params.story_id,
       req.body
     );
-    res.status(202).json({
-      message: `Story title is now: ${req.body.story_title}, and story body is now: ${req.body.story_body}.`,
-    });
+    res.status(202).json(updatedStory);
   } catch (err) {
     next(err);
   }

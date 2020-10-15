@@ -3,12 +3,11 @@ const Users = require("./users-model")
 
 const imagesRouter = require("../images/images-router")
 const storiesRouter = require("../stories/stories-router")
-const restrict = require("../auth/authenticate-middleware")
 
 const router = express.Router()
 
-router.use("/:id/images", restrict(), imagesRouter)
-router.use("/:id/stories", restrict(), storiesRouter)
+router.use("/:id/images", imagesRouter)
+router.use("/:id/stories", storiesRouter)
 
 router.get("/", async (req, res, next) => {
   try {

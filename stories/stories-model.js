@@ -5,7 +5,9 @@ function findStories() {
 }
 
 function findByStoryId(id) {
-  return db("user_stories").where("id", id).first();
+  return db("user_stories")
+    .where("id", id)
+    .first();
 }
 
 function findByUserId(userId) {
@@ -16,16 +18,23 @@ function findByUserId(userId) {
 }
 
 async function addStory(data) {
-  const [id] = await db("user_stories").returning("id").insert(data);
+  const [id] = await db("user_stories")
+    .returning("id")
+    .insert(data);
   return findByStoryId(id);
 }
 
 function removeStory(id) {
-  return db("user_stories").where({ id }).del();
+  return db("user_stories")
+    .where({ id })
+    .del();
 }
 
 async function updateStory(id, storyData) {
-  return db("user_stories").where("id", id).update(storyData);
+  await db("user_stories")
+    .where("id", id)
+    .update(storyData);
+  return await findByStoryId(id)
 }
 
 module.exports = {
